@@ -6,4 +6,6 @@
   <x-frontend-article />
 
   <x-frontend-gallery />
+
+  <x-frontend-service />
 @endsection

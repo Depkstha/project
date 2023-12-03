@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Gallery;
+use App\Models\Service;
 use App\Models\Slider;
 use Illuminate\Support\Facades\View;
 
@@ -20,6 +21,7 @@ class BaseController extends Controller
             ->get();
         $sliders = Slider::all();
         $articles = Article::where('is_published', 'on')->with('categories')->get();
+        $services = Service::where('is_published', 'on')->get();
         $galleries = Gallery::where('is_published', 'on')->get();
 
         View::share([
@@ -27,6 +29,7 @@ class BaseController extends Controller
             'sliders' => $sliders,
             'articles' => $articles,
             'galleries' => $galleries,
+            'services' => $services,
         ]);
     }
 }

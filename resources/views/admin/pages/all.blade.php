@@ -6,7 +6,7 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-body">
-          <div class="mb-4 justify-content-between d-flex align-items-center">
+          <div class="justify-content-between d-flex align-items-center mb-4">
             <h4 class="card-title">Carousel with Controls</h4>
           </div>
           <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
@@ -37,30 +37,22 @@
     <div class="col-md-6">
       <div class="card">
         <div class="card-body">
-          <div class="mb-4 justify-content-between d-flex align-items-center">
+          <div class="justify-content-between d-flex align-items-center mb-4">
             <h4 class="card-title">Gallery Preview</h4>
           </div>
-          <div class="row gallery-wrapper">
-            @isset($galleries)
-              @foreach ($galleries as $gallery)
-                <div class="element-item col-xl-4 col-sm-6 project designing development">
-                  <div class="gallery-box card">
-                    <div class="gallery-container">
-                      <a class="image-popup" href="{{ asset($gallery->image) }}" title="">
-                        <img class="mx-auto gallery-img img-fluid" src="{{ asset($gallery->image) }}" alt="" />
-                        <div class="gallery-overlay"></div>
-                      </a>
+          @isset($galleries)
+            @foreach ($galleries as $gallery)
+              <div class="row">
+                <div class="col-md-2 mb-2">
+                  <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" src="{{ asset($gallery->image) }}" alt="Card image cap">
+                    <div class="card-body">
+                      <p class="card-title">{{ $gallery->name }}</p>
                     </div>
                   </div>
-
-                  <div class="box-content p-3">
-                    <h5 class="title">{{ $gallery->name }}</h5>
-                    <p class="post">by <a href="" class="text-body">Scott Finch</a></p>
-                  </div>
-              @endforeach
-            @endisset
-            <!-- end row -->
-          </div>
+                </div>
+            @endforeach
+          @endisset
         </div>
         <!-- end row -->
       </div>
