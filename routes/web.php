@@ -6,6 +6,7 @@ use App\Http\Controllers\Backend\GalleryController;
 use App\Http\Controllers\Backend\PageController;
 use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\SliderController;
+use App\Http\Controllers\Frontend\FrontendController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,13 +20,11 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [FrontendController::class, 'home'])->name('home');
 
 Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified'])
     ->group(function () {
-        Route::get('/dashboard', function () {
+        Route::get('/dashboard',function () {
             return view('dashboard');
         })->name('dashboard');
         Route::resource('articles', ArticleController::class)->names('article');
@@ -34,4 +33,6 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::resource('galleries', GalleryController::class)->names('gallery');
         Route::resource('services', ServiceController::class)->names('services');
         Route::resource('categories', CategoryController::class)->names('category');
+        Route::resource('about', AboutController::class)->names('about');
+        Route::resource('contacts', ContactController::class)->names('contact');
     });

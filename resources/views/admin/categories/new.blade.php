@@ -33,7 +33,7 @@
               <div class="form-group subcategory mb-3">
                 <label class="form-label" for="subcategories">SubCategory <span class="text-danger">*</span></label>
                 <div class="d-flex gap-3">
-                  <input type="text" name="subcategories[]" class="form-control rounded" required>
+                  <input type="text" name="subcategories[]" class="form-control rounded">
                   <button type="button" class="badge bg-danger remove-subcategory"><i
                       class="fa-solid fa-minus"></i></button>
                   <button type="button" class="badge bg-secondary add-subcategory"><i

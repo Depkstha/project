@@ -42,10 +42,13 @@ class CategoryController extends Controller
             [
                 'name' => $request->name,
                 'slug' => Str::slug($request->name),
-                'is_published' => $request->is_published,
+                'is_published' => ($request->is_published == null) ? 0 : 1,
+
             ]);
 
-        $category->subcategories()->attach($request->subcategories);
+        foreach ($request->subcategories as $category) {
+            $category->subcategories()->create($request->subcategories);
+        }
         toastr()->success('Category has been created');
         return redirect()->back();
     }
@@ -72,18 +75,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $request->validate([
-            'name' => 'required|max:255|unique:categories',
-        ]);
-        $category->update([
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
-            'is_published' => $request->is_published,
-        ]);
 
-        $category->subcategories()->sync($request->subcategories);
-        toastr()->success('Category has been updated');
-        return redirect()->back();
     }
 
     /**
@@ -92,7 +84,6 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         $category = Category::findOrFail($id);
-        $category->subcategories()->detach();
         $category->articles()->detach();
         $category->delete();
         toastr()->success('Data has been deleted!');
