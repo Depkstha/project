@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Gallery;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,10 @@ class PageController extends Controller
     public function index()
     {
         $sliders = Slider::all();
+        $galleries = Gallery::all();
         return view('admin.pages.all', [
             'sliders' => $sliders,
+            'galleries' => $galleries,
         ]);
     }
 

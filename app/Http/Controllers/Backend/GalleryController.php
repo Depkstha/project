@@ -38,6 +38,7 @@ class GalleryController extends Controller
             $imagePath = uploadImage($request->image);
             $validatedData['image'] = $imagePath;
         }
+        $validatedData['is_published'] = $request->is_published;
         Gallery::create($validatedData);
         toastr()->success('Gallery has been saved successfully!');
         return redirect()->route('gallery.index');

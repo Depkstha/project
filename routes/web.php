@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Backend\ArticleController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\GalleryController;
 use App\Http\Controllers\Backend\PageController;
+use App\Http\Controllers\Backend\ServiceController;
 use App\Http\Controllers\Backend\SliderController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,10 +33,5 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified']
         Route::resource('sliders', SliderController::class)->names('slider');
         Route::resource('galleries', GalleryController::class)->names('gallery');
         Route::resource('services', ServiceController::class)->names('services');
-        Route::group(['prefix' => 'category'], function () {
-            Route::get('/index', [CategoryController::class, 'index'])->name('category.index');
-            Route::post('/store', [CategoryController::class, 'store'])->name('category.store');
-            Route::get('/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
-            Route::delete('/delete/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
-        });
+        Route::resource('categories', CategoryController::class)->names('category');
     });
