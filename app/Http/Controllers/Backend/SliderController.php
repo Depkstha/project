@@ -39,6 +39,7 @@ class SliderController extends Controller
             $imagePath = uploadImage($request->image);
             $validatedData['image'] = $imagePath;
         }
+        $validatedData['is_published'] = $request->is_published;
         Slider::create($validatedData);
         toastr()->success('Slider has been saved successfully!');
         return redirect()->route('slider.index');
@@ -78,6 +79,7 @@ class SliderController extends Controller
             $imagePath = uploadImage($request->image);
             $validatedData['image'] = $imagePath;
         }
+        $validatedData['is_published'] = $request->is_published;
         $slider->update($validatedData);
         toastr()->success('Slider has been updated successfully!');
         return redirect()->route('slider.index');

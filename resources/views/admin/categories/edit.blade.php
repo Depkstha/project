@@ -14,7 +14,7 @@
             @csrf
             <div class="mb-3">
               <label for="name" class="form-label text-bold">Name <span class="text-danger">*</span></label>
-              <input type="text" id="name" class="form-control rounded" name="name" required>
+              <input type="text" id="name" class="rounded form-control" name="name" required>
             </div>
             <div class="mb-3">
               <div class="mb-3">
@@ -30,10 +30,10 @@
             </div>
 
             <div id="subcategoriesContainer">
-              <div class="form-group subcategory mb-3">
+              <div class="mb-3 form-group subcategory">
                 <label class="form-label" for="subcategories">SubCategory <span class="text-danger">*</span></label>
-                <div class="d-flex gap-3">
-                  <input type="text" name="subcategories[]" class="form-control rounded" required>
+                <div class="gap-3 d-flex">
+                  <input type="text" name="subcategories[]" class="rounded form-control" required>
                   <button type="button" class="badge bg-danger remove-subcategory"><i
                       class="fa-solid fa-minus"></i></button>
                   <button type="button" class="badge bg-secondary add-subcategory"><i
@@ -41,7 +41,7 @@
                 </div>
               </div>
             </div>
-            <div class="mt-3 justify-end">
+            <div class="justify-end mt-3">
               <button type="submit" class="btn btn-primary btn-sm">Save</button>
             </div>
           </div>

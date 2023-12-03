@@ -17,7 +17,7 @@ class CategoryController extends Controller
         $categories = Category::all();
         return view('admin.categories.all', [
             'categories' => $categories,
-            'title' => 'category'
+            'title' => 'category',
         ]);
     }
 
@@ -35,17 +35,19 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:255|unique:categories,name,except,' . $request->id . '',
+            'name' => 'required|max:255|unique:categories',
         ]);
 
-        Category::updateOrCreate(
-            ['id' => $request->id],
+        $category = Category::create(
             [
                 'name' => $request->name,
                 'slug' => Str::slug($request->name),
                 'is_published' => $request->is_published,
             ]);
-        return response()->json(['message' => 'Success']);
+
+        $category->subcategories()->attach($request->subcategories);
+        toastr()->success('Category has been created');
+        return redirect()->back();
     }
 
     /**
@@ -59,27 +61,41 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request)
+    public function edit(string $id)
     {
-        $data = Category::where('id', $request->id)->first();
-        return response()->json($data);
+        $category = Category::findOrFail($id);
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:255|unique:categories',
+        ]);
+        $category->update([
+            'name' => $request->name,
+            'slug' => Str::slug($request->name),
+            'is_published' => $request->is_published,
+        ]);
+
+        $category->subcategories()->sync($request->subcategories);
+        toastr()->success('Category has been updated');
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
+    public function destroy(string $id)
     {
-        $category = Category::where('id', $request->id)->get();
+        $category = Category::findOrFail($id);
+        $category->subcategories()->detach();
+        $category->articles()->detach();
         $category->delete();
         toastr()->success('Data has been deleted!');
+        return redirect()->back();
     }
 }
